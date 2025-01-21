@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Footer from "./Footer";
 import CallToActionSection from "./CallToActionSection";
 import { Link } from "react-router-dom";
+import Training from "../img/Training.jpeg";
 
 const PageWrapper = styled.section`
   display: flex;
@@ -70,7 +71,7 @@ const PLMTrainingAndSupport = () => {
     <>
       <PageWrapper>
         <ImageContent>
-          <img src="/Training.jpeg" alt="PLM Training and Support" />
+          <img src={Training} alt="PLM Training and Support" />
         </ImageContent>
         <TextContent>
           <h2>PLM TRAINING AND SUPPORT</h2>

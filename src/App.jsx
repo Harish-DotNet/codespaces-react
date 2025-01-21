@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
@@ -33,29 +33,6 @@ const MainPage = () => {
 };
 
 const App = () => {
-  useEffect(() => {
-    const logElementWidths = () => {
-      console.log("Viewport Width:", window.innerWidth);
-      console.log("HTML Width:", document.documentElement.clientWidth, document.documentElement.scrollWidth);
-      console.log("Body Width:", document.body.clientWidth, document.body.scrollWidth);
-      console.log("#root Width:", document.getElementById("root").clientWidth, document.getElementById("root").scrollWidth);
-  
-      document.querySelectorAll("*").forEach((el) => {
-        if (el.scrollWidth > document.documentElement.clientWidth) {
-          console.log("Overflowing Element:", el, el.scrollWidth);
-          el.style.outline = "2px solid red"; // Highlight element
-        }
-      });
-    };
-  
-    logElementWidths();
-    window.addEventListener("resize", logElementWidths);
-  
-    return () => {
-      window.removeEventListener("resize", logElementWidths);
-    };
-  }, []);
-
   return (
     <>
       <ScrollToTop />

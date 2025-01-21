@@ -1,6 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Training from "../img/Training.jpeg";
+import Custom from "../img/Custom.jpeg";
+import Implement from "../img/Implement.jpeg";
 
 const ServicesSection = styled.section`
   background: #f8f9fa; /* Light grey background */
@@ -96,21 +99,21 @@ const Services = () => {
       <Heading>Transforming product management for success</Heading>
       <ServicesWrapper>
         <ServiceCard to="/services/plm-implementation">
-          <img src="/Implement.jpeg" alt="PLM software implementation" />
+          <img src={Implement}  alt="PLM software implementation" />
           <h3>PLM software implementation →</h3>
           <p>
             Streamline your product lifecycle with our expert PLM implementation services.
           </p>
         </ServiceCard>
         <ServiceCard to="/services/custom-plm-solutions">
-          <img src="/Custom.jpeg" alt="Custom PLM solutions" />
+          <img src={Custom} alt="Custom PLM solutions" />
           <h3>Custom PLM solutions →</h3>
           <p>
             Get personalized PLM solutions tailored to your specific business needs.
           </p>
         </ServiceCard>
         <ServiceCard to="/services/plm-training-support">
-          <img src="/Training.jpeg" alt="PLM training and support" />
+          <img src={Training} alt="PLM training and support" />
           <h3>PLM training and support →</h3>
           <p>
             Empower your team with comprehensive PLM training and ongoing support.

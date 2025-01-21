@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Footer from "./Footer";
 import CallToActionSection from "./CallToActionSection";
 import { Link } from "react-router-dom";
+import Implement from "../img/Implement.jpeg";
 
 const PageWrapper = styled.section`
   display: flex;
@@ -70,7 +71,7 @@ const PLMImplementation = () => {
     <>
       <PageWrapper>
         <ImageContent>
-          <img src="/Implement.jpeg" alt="PLM Implementation" />
+          <img src={Implement} alt="PLM Implementation" />
         </ImageContent>
         <TextContent>
           <h2>PLM SOFTWARE IMPLEMENTATION</h2>

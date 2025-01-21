@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import LandingPage from "../img/IshaaraasLandingPage.jpeg";
 
 const fadeInUp = keyframes`
   from {
@@ -13,7 +14,7 @@ const fadeInUp = keyframes`
 `;
 
 const HeroWrapper = styled.section`
-  background: url("/IshaaraasLandingPage.jpeg") no-repeat center center/cover;
+  background: url(${LandingPage}) no-repeat center center/cover;
   height: 80vh;
   display: flex;
   align-items: center;

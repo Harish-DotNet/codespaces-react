@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Footer from "./Footer";
 import CallToActionSection from "./CallToActionSection";
 import { Link } from "react-router-dom";
+import Custom from "../img/Custom.jpeg";
 
 const PageWrapper = styled.section`
   display: flex;
@@ -70,7 +71,7 @@ const CustomPLMSolutions = () => {
     <>
       <PageWrapper>
         <ImageContent>
-          <img src="/Custom.jpeg" alt="Custom PLM Solutions" />
+          <img src={Custom} alt="Custom PLM Solutions" />
         </ImageContent>
         <TextContent>
           <h2>CUSTOM PLM SOLUTIONS</h2>

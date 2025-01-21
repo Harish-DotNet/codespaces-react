@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import AboutImage from "../img/About.jpeg";
 
 const AboutSection = styled.section`
   background: #ffffff; /* Add a distinct background color */
@@ -100,7 +101,7 @@ const About = () => {
         <a href="#contact">Get in touch</a>
       </TextContent>
       <ImageContent>
-        <img src="/About.jpeg" alt="Innovative IT Solutions" />
+        <img src={AboutImage} alt="Innovative IT Solutions" />
       </ImageContent>
     </AboutSection>
   );
