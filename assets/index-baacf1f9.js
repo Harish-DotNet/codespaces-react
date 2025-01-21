@@ -130,7 +130,7 @@ Please change the parent <Route path="${f}"> to <Route path="${f==="/"?"*":`${f}
     transform: translateY(0);
   }
 `,Dw=D.section`
-  background: url("/IshaaraasLandingPage.jpeg") no-repeat center center/cover;
+  background: url("./IshaaraasLandingPage.jpeg") no-repeat center center/cover;
   height: 80vh;
   display: flex;
   align-items: center;
