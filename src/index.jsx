@@ -4,8 +4,8 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 
-// Dynamically set the basename for GitHub Pages or local development
-const basename = process.env.NODE_ENV === "production" ? "/codespaces-react" : "/";
+// Dynamically set the basename for GitHub Pages or custom domains
+const basename = import.meta.env.BASE_URL || "/";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
