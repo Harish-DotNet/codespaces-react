@@ -1,26 +1,16 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "hostRequirements": {
     "cpus": 4
   },
-  "waitFor": "onCreateCommand",
-  "updateContentCommand": "npm install",
-  "postCreateCommand": "",
-  "postAttachCommand": {
-    "server": "npm start"
-  },
+  "forwardPorts": [5173],
   "customizations": {
     "codespaces": {
-      "openFiles": [
-        "src/App.jsx"
-      ]
+      "openFiles": ["src/App.jsx"]
     }
   },
-  "portsAttributes": {
-    "3000": {
-      "label": "Application",
-      "onAutoForward": "openPreview"
-    }
-  },
-  "forwardPorts": [3000]
+  "postCreateCommand": "npm install",
+  "postAttachCommand": "npm run dev"
 }
