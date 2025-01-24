@@ -41,6 +41,7 @@ const NavLinks = styled.div`
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 1rem;
+    z-index: 1000;
   }
 `;
 
@@ -102,6 +103,9 @@ const Header = () => {
   const navigate = useNavigate();
 
   const scrollToSection = (id) => {
+    // Close the menu when a link is clicked
+    setMenuOpen(false);
+
     if (location.pathname === "/") {
       const element = document.getElementById(id);
       if (element) {
@@ -134,7 +138,7 @@ const Header = () => {
     <HeaderWrapper>
       <Nav>
         <Logo>ISHARAAS TECH SOLUTIONS</Logo>
-        <Hamburger onClick={() => setMenuOpen(!menuOpen)}>
+        <Hamburger onClick={() => setMenuOpen((prev) => !prev)}>
           <div></div>
           <div></div>
           <div></div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const ContactSection = styled.section`
@@ -11,7 +11,7 @@ const ContactSection = styled.section`
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: stretch; /* Ensure both sections stretch equally */
     padding: 3rem 10%;
   }
 `;
@@ -112,6 +112,7 @@ const MapWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* Ensure the content inside stretches equally */
   gap: 1.5rem;
 
   @media (max-width: 768px) {
@@ -121,13 +122,10 @@ const MapWrapper = styled.div`
 
 const Map = styled.iframe`
   width: 100%;
-  height: 250px;
+  height: 100%;
+  min-height: 300px; /* Ensures minimum height */
   border-radius: 10px;
   border: none;
-
-  @media (min-width: 768px) {
-    height: 300px;
-  }
 `;
 
 const ContactDetails = styled.div`
@@ -157,9 +155,24 @@ const ContactDetails = styled.div`
 `;
 
 const Contact = () => {
+  const [equalHeight, setEqualHeight] = useState(0);
+
+  useEffect(() => {
+    const formWrapper = document.querySelector("#formWrapper");
+    const mapWrapper = document.querySelector("#mapWrapper");
+
+    if (formWrapper && mapWrapper) {
+      const formHeight = formWrapper.offsetHeight;
+      const mapHeight = mapWrapper.offsetHeight;
+
+      // Set the larger height for both sections
+      setEqualHeight(Math.max(formHeight, mapHeight));
+    }
+  }, []);
+
   return (
     <ContactSection id="contact">
-      <FormWrapper>
+      <FormWrapper id="formWrapper" style={{ minHeight: `${equalHeight}px` }}>
         <Title>GET IN TOUCH</Title>
         <Heading>We’re here to help your business thrive.</Heading>
         <Form>
@@ -178,7 +191,7 @@ const Contact = () => {
         </Form>
       </FormWrapper>
 
-      <MapWrapper>
+      <MapWrapper id="mapWrapper" style={{ minHeight: `${equalHeight}px` }}>
         <Map
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.7988122762966!2d80.19472587629865!3d12.928936116021844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525da0ed76d7eb%3A0xbdf43022f31dd76b!2sAlliance%20Galleria%20Residences!5e0!3m2!1sen!2sin!4v1671288332337!5m2!1sen!2sin"
           allowFullScreen=""

@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Training from "../img/Training.jpeg";
 import Custom from "../img/Custom.jpeg";
 import Implement from "../img/Implement.jpeg";
 
 const ServicesSection = styled.section`
-  background: #f8f9fa; /* Light grey background */
+  background: #f8f9fa;
   padding: 4rem 10%;
-  min-height: calc(100vh - 80px); /* Ensures the section fits within the viewport minus header height */
+  min-height: calc(100vh - 80px);
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align content to the starting point */
-  box-sizing: border-box; /* Includes padding in height calculation */
+  align-items: flex-start;
+  box-sizing: border-box;
 
   @media (max-width: 768px) {
     padding: 2rem 5%;
@@ -21,29 +21,34 @@ const ServicesSection = styled.section`
 
 const Title = styled.h2`
   color: #28a745;
-  font-size: 1.2rem; /* Smaller font size for title */
-  margin-bottom: 0.5rem; /* Closer spacing to heading */
-  text-align: left; /* Align to the left */
-  text-transform: uppercase; /* Matches the style of the image */
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-align: left;
+  text-transform: uppercase;
+  opacity: ${(props) => (props.visible ? 1 : 0)};
+  transform: ${(props) => (props.visible ? "translateY(0)" : "translateY(20px)")};
+  transition: all 0.8s ease-in-out;
 `;
 
 const Heading = styled.h1`
-  font-size: 2.2rem; /* Slightly smaller than before */
-  margin-bottom: 2.5rem; /* Proper spacing from the title */
+  font-size: 2.2rem;
+  margin-bottom: 2.5rem;
   font-weight: bold;
-  text-align: left; /* Align to the left */
+  text-align: left;
+  opacity: ${(props) => (props.visible ? 1 : 0)};
+  transform: ${(props) => (props.visible ? "translateY(0)" : "translateY(20px)")};
+  transition: all 0.8s ease-in-out;
 `;
 
 const ServicesWrapper = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Divides into three equal columns */
   gap: 2rem;
-  justify-content: flex-start; /* Aligns the cards to the left */
-  flex-wrap: wrap; /* Ensures responsiveness */
+  width: 100%; /* Ensures it spans the entire section width */
 
   @media (max-width: 768px) {
-    flex-wrap: nowrap; /* Prevent squeezing into the same row */
-    flex-direction: column; /* Stack cards sequentially */
-    gap: 1.5rem; /* Reduce gap for better spacing */
+    grid-template-columns: 1fr; /* Stack items on smaller screens */
+    gap: 1.5rem;
   }
 `;
 
@@ -52,11 +57,16 @@ const ServiceCard = styled(Link)`
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
-  flex: 1 1 auto; /* Cards auto-adjust width but maintain proportions */
-  max-width: 300px; /* Limits the width of cards */
-  text-decoration: none; /* Removes underline for links */
-  color: inherit; /* Inherits the text color */
-  transition: transform 0.3s, box-shadow 0.3s;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  transition: transform 0.3s, box-shadow 0.3s, opacity 0.8s ease-in-out;
+  opacity: ${(props) => (props.visible ? 1 : 0)};
+  transform: ${(props) =>
+    props.visible ? "translateY(0)" : "translateY(20px)"};
+  transition-delay: ${(props) => props.delay || "0s"}; /* Staggered animation */
 
   &:hover {
     transform: translateY(-10px);
@@ -64,59 +74,82 @@ const ServiceCard = styled(Link)`
   }
 
   &:hover h3 {
-    color: #28a745; /* Green color on hover */
+    color: #28a745;
   }
 
   img {
     width: 100%;
     border-radius: 10px;
     margin-bottom: 1rem;
-    transition: transform 0.3s ease; /* Smooth transition for image zoom */
-  }
-
-  h3 {
-    color: #000; /* Default color for headings */
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s ease; /* Smooth color transition for hover effect */
-  }
-
-  p {
-    font-size: 1rem;
-    line-height: 1.5;
-    color: #6c757d;
+    transition: transform 0.3s ease;
   }
 
   &:hover img {
-    transform: scale(1.05); /* Slight zoom on image hover */
+    transform: scale(1.05);
   }
 `;
 
 const Services = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const section = document.getElementById("services");
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => {
+      if (section) {
+        observer.unobserve(section);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (location.hash === "#services") {
+      setIsVisible(true);
+    }
+  }, [location]);
+
   return (
     <ServicesSection id="services">
-      <Title>INNOVATIVE PLM SOLUTIONS</Title>
-      <Heading>Transforming product management for success</Heading>
+      <Title visible={isVisible}>INNOVATIVE PLM SOLUTIONS</Title>
+      <Heading visible={isVisible}>
+        Transforming product management for success
+      </Heading>
       <ServicesWrapper>
-        <ServiceCard to="/services/plm-implementation">
-          <img src={Implement}  alt="PLM software implementation" />
+        <ServiceCard to="/services/plm-implementation" visible={isVisible} delay="0s">
+          <img src={Implement} alt="PLM software implementation" />
           <h3>PLM software implementation →</h3>
           <p>
-            Streamline your product lifecycle with our expert PLM implementation services.
+            Streamline your product lifecycle with our expert PLM implementation
+            services.
           </p>
         </ServiceCard>
-        <ServiceCard to="/services/custom-plm-solutions">
+        <ServiceCard to="/services/custom-plm-solutions" visible={isVisible} delay="0.2s">
           <img src={Custom} alt="Custom PLM solutions" />
           <h3>Custom PLM solutions →</h3>
           <p>
-            Get personalized PLM solutions tailored to your specific business needs.
+            Get personalized PLM solutions tailored to your specific business
+            needs.
           </p>
         </ServiceCard>
-        <ServiceCard to="/services/plm-training-support">
+        <ServiceCard to="/services/plm-training-support" visible={isVisible} delay="0.4s">
           <img src={Training} alt="PLM training and support" />
           <h3>PLM training and support →</h3>
           <p>
-            Empower your team with comprehensive PLM training and ongoing support.
+            Empower your team with comprehensive PLM training and ongoing
+            support.
           </p>
         </ServiceCard>
       </ServicesWrapper>

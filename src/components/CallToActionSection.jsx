@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CallToActionWrapper = styled.div`
   background: #28a745; /* Light green background */
   color: #ffffff;
-  text-align: center;
-  padding: 2rem;
+  padding: 2rem 10%; /* Matches padding with header and footer */
+  text-align: left; /* Align content to the left */
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding: 2rem 5%; /* Adjust for smaller screens */
+  }
 
   h2 {
     font-size: 2rem;
@@ -19,7 +24,7 @@ const CallToActionWrapper = styled.div`
     margin-bottom: 1.5rem;
   }
 
-  a {
+  button {
     background: none;
     border: 2px solid #ffffff;
     border-radius: 5px;
@@ -28,7 +33,7 @@ const CallToActionWrapper = styled.div`
     color: #ffffff;
     font-weight: bold;
     cursor: pointer;
-    text-decoration: none; /* Removes underline */
+    text-decoration: none;
 
     &:hover {
       background: #ffffff;
@@ -38,11 +43,31 @@ const CallToActionWrapper = styled.div`
 `;
 
 const CallToActionSection = () => {
+  const navigate = useNavigate();
+
+  const handleNavigateToContact = () => {
+    navigate("/#contact");
+    setTimeout(() => {
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        const headerHeight =
+          document.querySelector("header")?.offsetHeight || 0;
+        const offsetPosition =
+          contactSection.offsetTop - headerHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        });
+      }
+    }, 300); // Small delay to allow navigation
+  };
+
   return (
     <CallToActionWrapper>
       <h2>Let's talk</h2>
       <p>We would love to hear from you!</p>
-      <Link to="/#contact">GET IN TOUCH</Link>
+      <button onClick={handleNavigateToContact}>GET IN TOUCH</button>
     </CallToActionWrapper>
   );
 };
