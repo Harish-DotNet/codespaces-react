@@ -3,38 +3,69 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const FooterWrapper = styled.footer`
-  background: rgb(2, 81, 36); /* Dark green/black background */
+  background: rgb(2, 81, 36);
   color: #ffffff;
-  padding: 2rem 10%; /* Increased padding for a taller footer */
-  text-align: left; /* Align content to the left by default */
+  padding: 1.5rem 10%;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 
-  a {
-    color: #ffffff;
-    margin: 0 1rem 0 0; /* Adjusted margin for spacing between links */
-    text-decoration: none;
-    font-weight: bold;
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
 
-    &:hover {
-      text-decoration: underline;
+    a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 
-  @media (max-width: 768px) {
-    padding: 1.5rem 5%; /* Reduced padding for smaller screens */
-    text-align: center; /* Center-align content for phones */
+  .rights {
+    font-size: 0.75rem;
+    color: #d1d1d1;
+    margin-top: 1rem;
+  }
 
-    a {
-      display: block; /* Stack links vertically */
-      margin: 0.5rem 0; /* Adjust spacing between stacked links */
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+
+    .links {
+      flex-direction: row;
+      margin-bottom: 0;
+      gap: 2rem;
+    }
+
+    .rights {
+      margin-top: 0;
+      text-align: right;
     }
   }
 `;
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <FooterWrapper>
-      <Link to="/schedule-meeting">Schedule Appointment</Link>
-      <Link to="/intake-form">Complete Intake</Link>
+      <div className="links">
+        <Link to="/schedule-meeting">Schedule Appointment</Link>
+        <Link to="/intake-form">Complete Intake</Link>
+      </div>
+      <div className="rights">
+        © {currentYear} ISHAARAAS Tech Solutions. All rights reserved.
+      </div>
     </FooterWrapper>
   );
 };

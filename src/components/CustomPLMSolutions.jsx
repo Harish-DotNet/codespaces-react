@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Footer from "./Footer";
+import { Link } from "react-router-dom"; // Added for navigation
 import CallToActionSection from "./CallToActionSection";
-import { Link } from "react-router-dom";
-import Custom from "../img/Custom.jpeg";
+import CustomPLMImage from "../img/Custom.jpeg"; // Update with the correct image path
 
 const PageWrapper = styled.section`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 10%;
+  padding: 3rem 10%;
   background: #ffffff;
   min-height: calc(100vh - 80px);
+  flex-wrap: wrap;
+  box-sizing: border-box;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    padding: 2rem 5%;
+  }
 `;
 
 const ImageContent = styled.div`
@@ -19,20 +25,31 @@ const ImageContent = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: ${(props) =>
+    props.$isVisible ? "translateX(0)" : "translateX(50px)"};
+  transition: transform 0.8s ease;
 
   img {
-    width: 80%;
+    width: 100%;
     max-width: 500px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+    }
   }
 `;
 
 const TextContent = styled.div`
   flex: 1;
-  padding-left: 2rem;
+  margin-right: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transform: ${(props) =>
+    props.$isVisible ? "translateX(0)" : "translateX(-50px)"};
+  transition: transform 0.8s ease;
 
   h2 {
     color: #28a745;
@@ -42,23 +59,33 @@ const TextContent = styled.div`
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 1.5rem;
     font-weight: bold;
-    line-height: 1.4;
+    line-height: 1.2;
+
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
   }
 
   p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.8;
     margin-bottom: 1.5rem;
-    color: #333333;
+    color: #495057;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
   }
 
   a {
     color: #28a745;
     text-decoration: underline;
     font-weight: bold;
+    transition: color 0.3s;
 
     &:hover {
       color: #1e7b34;
@@ -67,26 +94,40 @@ const TextContent = styled.div`
 `;
 
 const CustomPLMSolutions = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.5 }
+    );
+
+    const section = document.getElementById("custom-plm-solutions");
+    if (section) observer.observe(section);
+
+    return () => {
+      if (section) observer.unobserve(section);
+    };
+  }, []);
+
   return (
     <>
-      <PageWrapper>
-        <ImageContent>
-          <img src={Custom} alt="Custom PLM Solutions" />
+      <PageWrapper id="custom-plm-solutions">
+        <ImageContent $isVisible={isVisible}>
+          <img src={CustomPLMImage} alt="Custom PLM Solutions" />
         </ImageContent>
-        <TextContent>
+        <TextContent $isVisible={isVisible}>
           <h2>CUSTOM PLM SOLUTIONS</h2>
-          <h1>Unlock the power of personalized PLM solutions</h1>
+          <h1>Tailored solutions to meet your unique needs</h1>
           <p>
-            Unlock the power of personalized PLM solutions with ISHAARAAS tech
-            solutions. We understand that each business is unique, which is why
-            we offer customized PLM software that aligns perfectly with your
-            organizational goals. Our team of experts works closely with you to
-            design and develop solutions that not only meet your current
-            requirements but also adapt to your future growth. Enhance
-            visibility, streamline processes, and foster collaboration across
-            your teams with our bespoke PLM offerings. Let us help you create a
-            product lifecycle management system that drives success and
-            innovation in your business.
+            At ISHAARAAS tech solutions, we specialize in delivering custom
+            PLM solutions designed to address the specific needs of your
+            organization. Our team of experts works closely with you to
+            understand your processes and challenges, enabling us to
+            develop innovative strategies that drive efficiency and improve
+            outcomes. Whether you require specialized integrations,
+            workflow automation, or custom modules, we ensure our solutions
+            align perfectly with your objectives.
           </p>
           <Link to="/schedule-meeting">Schedule Appointment</Link>
         </TextContent>

@@ -11,7 +11,7 @@ const ContactSection = styled.section`
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
-    align-items: stretch; /* Ensure both sections stretch equally */
+    align-items: stretch;
     padding: 3rem 10%;
   }
 `;
@@ -112,7 +112,7 @@ const MapWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensure the content inside stretches equally */
+  justify-content: space-between;
   gap: 1.5rem;
 
   @media (max-width: 768px) {
@@ -123,7 +123,7 @@ const MapWrapper = styled.div`
 const Map = styled.iframe`
   width: 100%;
   height: 100%;
-  min-height: 300px; /* Ensures minimum height */
+  min-height: 300px;
   border-radius: 10px;
   border: none;
 `;
@@ -165,7 +165,6 @@ const Contact = () => {
       const formHeight = formWrapper.offsetHeight;
       const mapHeight = mapWrapper.offsetHeight;
 
-      // Set the larger height for both sections
       setEqualHeight(Math.max(formHeight, mapHeight));
     }
   }, []);
@@ -200,13 +199,19 @@ const Contact = () => {
         <ContactDetails>
           <h3>Get in touch</h3>
           <p>
-            <a href="mailto:harishusasep4@gmail.com">harishusasep4@gmail.com</a>
+            <a
+              href="mailto:info@ishaaraas.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Email us: info@ishaaraas.com
+            </a>
           </p>
           <h3>Location</h3>
           <p>
-            Magnus C 1302, Alliance Galleria, Pallavaram
+            12A03 Magnus C, Alliance Galleria, Pallavaram
             <br />
-            Chennai, TN INDIA
+            Chennai, TN, India
           </p>
         </ContactDetails>
       </MapWrapper>
